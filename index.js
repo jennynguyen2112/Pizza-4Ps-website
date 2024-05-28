@@ -1,0 +1,132 @@
+let express = require('express');
+let app = express();
+let path = require('path');
+let sqlite3 = require('sqlite3').verbose();
+let session = require('express-session');
+let db = new sqlite3.Database('./database.db');
+let PORT = process.env.PORT || 3000;
+
+
+// Run the table creation script
+require('./createDB.js');
+
+
+//Here we are configuring express to use body-parser as middle-ware.
+app.use(express.urlencoded({ extended: true }));
+app.use(session({
+    secret: 'your_secret_key',
+    resave: false,
+    saveUninitialized: true
+}));
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
+app.get('/', (req, res) => {
+    res.render('signin');
+});
+
+app.get('/home', (req, res) => {
+    res.render('home');
+});
+
+app.get('/reservation', (req, res) => {
+    res.render('reservation');
+});
+
+app.get('/menu', (req, res) => {
+    res.render('menu');
+});
+
+app.get('/about', (req, res) => {
+    res.render('about');
+});
+
+app.get('/signin', (req, res) => {
+    res.render('signin');
+});
+app.post('/signin', (req, res) =>{
+    const {email, password} = req.body;
+    if (email && password){
+        db.get('SELECT * FROM usersDB WHERE email = ? AND password =?',
+        [email, password],(err, user) => {
+            if(err) throw err;
+            if (user)  {
+                req.session.user = {id: user.id, email: user.email};
+                res.redirect('/home');
+            } else {
+                res.send('Incorrect Login Details')
+            }
+        });
+    } else {
+        res.send('Please Enter Login Details');
+    }
+});
+
+app.post('/reservation-info', (req, res) => {
+    console.log('Received reservation from customer');
+    console.log('Request body:', req.body);
+    let { firstname, lastname, email, mobile, restaurant, guestsnumber, date, time, notes } = req.body;
+    console.log(`Data to be inserted: ${firstname}, ${lastname}, ${email}, ${mobile}, ${restaurant}, ${guestsnumber}, ${date}, ${time}, ${notes}`);
+    // Validate that none of the fields are undefined or empty
+    if (!firstname || !lastname || !email || !mobile || !restaurant || !guestsnumber || !date || !time) {
+        console.error('Error: Missing fields in the reservation data');
+        res.status(400).send('Bad Request: Missing fields in the reservation data');
+        return;
+    }
+    db.run('INSERT INTO reservationDB (firstname, lastname, email, mobile, restaurant, guestsnumber, date, time, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [firstname, lastname, email, mobile, restaurant, guestsnumber, date, time, notes], (err) => {
+        if (err) {
+            console.error('Error inserting data:', err.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        else {console.log('Data inserted successfully');}
+    });
+    res.render('submission', { 
+        firstname: firstname,
+        lastname: lastname,
+        restaurant: restaurant,
+        date: date,
+        time: time,
+        guestsnumber: guestsnumber
+    });
+});
+
+
+app.get('/reservation-info',(req, res) =>{  
+    db.all ('SELECT * from reservationDB', (err, rows) => {
+        if (err) {
+            return console.error(err.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.render('reservation-info', {reservations: rows });
+    })
+});
+
+app.post('/search', (req, res) => {
+    let search = req.body.restaurant;
+    console.log('Search term:', search); 
+    const query = `SELECT * FROM reservationDB WHERE restaurant LIKE '%${search}%'`;
+
+    db.all(query, (err, rows) => {
+        if (err) {
+            console.error(err.message);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        console.log('Search results:', rows);
+        res.render('search', { title: 'Search Results', search: search, rows: rows });
+    });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+});
+
