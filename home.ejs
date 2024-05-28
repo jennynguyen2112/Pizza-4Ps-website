@@ -1,0 +1,184 @@
+<%- include('header'); -%>
+
+    <header class="container-fluid py-3">
+        <div class="row align-items-center">
+            <div class="col-4 d-flex align-items-center">
+                <a href="task5-3.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img src="4pslogo.png" alt="Logo" >
+                </a>
+            </div>
+            <div class="col-8 text-end">
+        <!-- Offcanvas -->
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Opening hours</button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Opening Hours</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+                    </div>
+                    <div class="offcanvas-body text-center">
+                        <ul>Monday 6pm-9.30pm</ul>
+                        <ul>Tuesday 6pm-9.30pm</ul>
+                        <ul>Wednesday 6pm-9.30pm</ul>
+                        <ul>Thursday 6pm-9.30pm</ul>
+                        <ul>Friday 5pm-9.30pm</ul>
+                        <ul>Saturday 5pm-9.30pm</ul>
+                        <ul>Sunday 5pm-9.30pm</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<main>
+    <nav class="container-fluid py-2 border-bottom border-body" id="nav">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a href="/home" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="/reservation" class="nav-link">Reservation</a></li>
+          <li class="nav-item"><a href="/menu" class="nav-link">Menu</a></li>
+        </ul>
+    </nav>
+      <!-- Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide"data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="4Ps.jpg" class="d-block w-100"  alt="4Ps-hompage-1">
+                  <div class="carousel-caption d-none d-md-block"></div>
+            </div>
+            <div class="carousel-item">
+            <img src="4prestaurant.jpg" class="d-block w-100" alt="4Ps-hompage-2">
+                <div class="carousel-caption d-none d-md-block">
+                <h2>Melbourne Restaurant</h2>
+                </div>
+            </div>
+            <div class="carousel-item">
+            <img src="4prestaurant2.jpg" class="d-block w-100" alt="4Ps-hompage-3">
+                <div class="carousel-caption d-none d-md-block">
+                <h2>Sydney Restaurant</h2>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    
+    <section class="library"> 
+        <h1 class="library-category">Library</h1>
+        <button class="pre-btn"><img src="arrow.png" alt=""></button>
+        <button class="nxt-btn"><img src="arrow.png" alt=""></button>
+        <div class="library-container">
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider1.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Melbourne restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider2.png" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Melbourne restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider3.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Melbourne restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider4.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Sydney restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider5.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Sydney restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider6.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Sydney restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider7.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Upcoming restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider8.jpg" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Upcoming restaurant</h4>
+                </div>
+            </div>
+            <div class="library-card">
+                <div class="library-image">
+                    <img src="slider9.png" class="library-thumb" alt="">
+                    <button class="card-btn">Book now</button>
+                </div>
+                <div class="library-info">
+                    <h4 class="library-title">Upcoming restaurant</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        let libraryContainers = document.querySelectorAll('.library-container');
+        let nxtBtn = document.querySelectorAll('.nxt-btn');
+        let preBtn = document.querySelectorAll('.pre-btn');
+
+        libraryContainers.forEach((item, i) => {
+            let containerDimensions = item.getBoundingClientRect();
+            let containerWidth = containerDimensions.width;
+        
+            nxtBtn[i].addEventListener('click', () => {
+                item.scrollLeft += containerWidth;
+            })
+        
+            preBtn[i].addEventListener('click', () => {
+                item.scrollLeft -= containerWidth;
+            })
+        })
+    </script>
+</main>
+
+<%- include('footer'); -%>

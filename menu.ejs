@@ -1,0 +1,69 @@
+<%- include('header'); -%>
+<div class="container-fluid py-3">
+    <header class="container-fluid py-3">
+        <div class="row align-items-center">
+            <div class="col-4 d-flex align-items-center">
+                <a href="task5-3.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img src="4pslogo.png" alt="Logo" >
+                </a>
+            </div>
+            <div class="col-8 text-end">
+                
+        <!-- Offcanvas -->
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Opening hours</button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Opening Hours</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+                    </div>
+                    <div class="offcanvas-body text-center">
+                        <ul>Monday 6pm-9.30pm</ul>
+                        <ul>Tuesday 6pm-9.30pm</ul>
+                        <ul>Wednesday 6pm-9.30pm</ul>
+                        <ul>Thursday 6pm-9.30pm</ul>
+                        <ul>Friday 5pm-9.30pm</ul>
+                        <ul>Saturday 5pm-9.30pm</ul>
+                        <ul>Sunday 5pm-9.30pm</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+</div>
+    
+<main>
+    <nav class="container-fluid py-2 border-bottom border-body" id="nav">
+        <ul class="nav justify-content-center">
+          <li class="nav-item"><a href="/home" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+          <li class="nav-item"><a href="/reservation" class="nav-link">Reservation</a></li>
+          <li class="nav-item"><a href="/menu" class="nav-link">Menu</a></li>
+        </ul>
+    </nav>
+        <div class="container">
+            
+            <h1 style="text-align: center; color: white;">Menu</h1>
+            <div class="shopping">
+                <img src="/shopping.svg">
+                <span class="quantity">0</span>
+            </div>
+            <div class="list">
+          
+            </div>
+            <div class="row row-cols-1 row-cols-md-2 g-1 p-3">
+                <div class="cart">
+                    <h1>Cart</h1>
+                    <ul class="listCart">
+                    </ul>
+                    <div class="checkOut">
+                        <div class="total">0</div>
+                        <div class="closeShopping">Close</div>
+                    </div>
+                </div>
+                <script src="/cart.js"></script>
+
+        </div>
+</main>
+
+<%- include('footer'); -%>
