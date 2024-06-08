@@ -1,0 +1,72 @@
+<%- include('header'); -%>
+    <header class="container-fluid py-3">
+        <div class="row align-items-center">
+            <div class="col-4 d-flex align-items-center">
+                <a href="task5-3.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img src="4pslogo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="col-8 text-end">
+        <!-- Offcanvas -->
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Opening hours</button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Opening Hours</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+                    </div>
+                    <div class="offcanvas-body text-center">
+                        <ul>Monday 6pm-9.30pm</ul>
+                        <ul>Tuesday 6pm-9.30pm</ul>
+                        <ul>Wednesday 6pm-9.30pm</ul>
+                        <ul>Thursday 6pm-9.30pm</ul>
+                        <ul>Friday 5pm-9.30pm</ul>
+                        <ul>Saturday 5pm-9.30pm</ul>
+                        <ul>Sunday 5pm-9.30pm</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<main>
+    <nav class="container-fluid py-2 border-bottom border-body" id="nav">
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a href="/home" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="/reservation" class="nav-link">Reservation</a></li>
+            <li class="nav-item"><a href="/menu" class="nav-link">Menu</a></li>
+        </ul>
+    </nav>
+    <div class="container-fluid" style="background-color: white; height: 500px;">
+        <div class="container py-2" style="background-color: wheat; height: 500px;">
+            <h2 style ="text-align: center;" >Register New User</h2>
+            <form class="row g-6 py-3" action="/signup" method="post">
+                <div class="col-md-6">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="User Name">
+                    <span id="username"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <input type="checkbox" onclick="showpassword()"> Show Password
+                    <span id="password"></span>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-primary">Reset</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+<script>
+    function showpassword() {
+    var x = document.getElementById("password");
+    if (x.type === "password") {
+      x.type = "text";
+    } else {
+      x.type = "password";
+    }
+  }
+</script>
+<%- include('footer'); -%>
