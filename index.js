@@ -2,30 +2,26 @@ let express = require('express');
 let app = express();
 let path = require('path');
 let sqlite3 = require('sqlite3').verbose();
-let session = require('express-session');
 let db = new sqlite3.Database('./database.db');
+let bcrypt = require('bcrypt');
+let { findMenuItems } = require('./mongoDB'); 
+
+
 let PORT = process.env.PORT || 3000;
 
 
 // Run the table creation script
 require('./createDB.js');
 
-
 //Here we are configuring express to use body-parser as middle-ware.
 app.use(express.urlencoded({ extended: true }));
-app.use(session({
-    secret: 'your_secret_key',
-    resave: false,
-    saveUninitialized: true
-}));
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 // Serve static files from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
-app.use((req, res, next) => {
-    res.locals.user = req.session.user;
-    next();
-});
+
+
 
 app.get('/', (req, res) => {
     res.render('signin');
@@ -50,15 +46,32 @@ app.get('/about', (req, res) => {
 app.get('/signin', (req, res) => {
     res.render('signin');
 });
+app.get('/signup', (req, res) => {
+    res.render('signup');
+});
+app.get('/thankyou', (req, res) => {
+    res.render('thankyou');
+});
+app.get('/menu-search', (req, res) => {
+    res.render('thankyou');
+});
 app.post('/signin', (req, res) =>{
-    const {email, password} = req.body;
-    if (email && password){
-        db.get('SELECT * FROM usersDB WHERE email = ? AND password =?',
-        [email, password],(err, user) => {
+    const {username, password} = req.body;
+    if (username && password){
+        db.get('SELECT * FROM usersDB WHERE username = ?',
+        [username],(err, user) => {
             if(err) throw err;
             if (user)  {
-                req.session.user = {id: user.id, email: user.email};
-                res.redirect('/home');
+                console.log(`User found: ${user.username}, Hashed Password: ${user.password}`);
+                bcrypt.compare(password, user.password, (err, result)=>{
+                    if(err) throw err;
+                    console.log(`Password comparison result: ${result}`);
+                    if (result) {
+                        res.redirect('/home');
+                    }else {
+                        res.send('Incorrect Details')
+                    }
+                });
             } else {
                 res.send('Incorrect Login Details')
             }
@@ -67,6 +80,19 @@ app.post('/signin', (req, res) =>{
         res.send('Please Enter Login Details');
     }
 });
+app.post('/signup', async (req, res) =>{
+    const {username, password} = req.body
+    const hash = await bcrypt.hash(password,13)
+    console.log(`Data to be inserted: ${username}, ${hash}`);
+    db.run('INSERT INTO usersDB (username, password) VALUES (?, ?)',
+    [username, hash], (err) =>{
+    if (err) {
+        console.error('Error inserting data:', err.message);
+    }
+    res.redirect('/thankyou');
+    });
+});
+
 
 app.post('/reservation-info', (req, res) => {
     console.log('Received reservation from customer');
@@ -98,15 +124,12 @@ app.post('/reservation-info', (req, res) => {
     });
 });
 
-
 app.get('/reservation-info',(req, res) =>{  
     db.all ('SELECT * from reservationDB', (err, rows) => {
         if (err) {
             return console.error(err.message);
-            res.status(500).send('Internal Server Error');
-            return;
         }
-        res.render('reservation-info', {reservations: rows });
+        res.redirect('reservation-info', {reservations: rows });
     })
 });
 
@@ -124,6 +147,18 @@ app.post('/search', (req, res) => {
         console.log('Search results:', rows);
         res.render('search', { title: 'Search Results', search: search, rows: rows });
     });
+});
+
+
+app.post('/menu-search', async (req, res) => {
+    const searchTerm = req.body.menuitem;
+    try {
+        const results = await findMenuItems(searchTerm);
+        res.render('menu-search', { title: 'Menu Search Results', results: results || [] });
+    } catch (err) {
+        console.error('Error searching menu items:', err);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.listen(PORT, () => {
