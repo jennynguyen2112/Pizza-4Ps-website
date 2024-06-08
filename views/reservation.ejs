@@ -1,0 +1,149 @@
+<%- include('header'); -%>
+    <header class="container-fluid py-3">
+        <div class="row align-items-center">
+            <div class="col-4 d-flex align-items-center">
+                <a href="task5-3.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+              <img src="4pslogo.png" alt="Logo">
+                </a>
+            </div>
+            <div class="col-8 text-end">
+        <!-- Offcanvas -->
+                <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Opening hours</button>
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasRightLabel">Opening Hours</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
+                    </div>
+                    <div class="offcanvas-body text-center">
+                        <ul>Monday 6pm-9.30pm</ul>
+                        <ul>Tuesday 6pm-9.30pm</ul>
+                        <ul>Wednesday 6pm-9.30pm</ul>
+                        <ul>Thursday 6pm-9.30pm</ul>
+                        <ul>Friday 5pm-9.30pm</ul>
+                        <ul>Saturday 5pm-9.30pm</ul>
+                        <ul>Sunday 5pm-9.30pm</ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<main>
+    <nav class="container-fluid py-2 border-bottom border-body" id="nav">
+        <ul class="nav justify-content-center">
+            <li class="nav-item"><a href="/home" class="nav-link active">Home</a></li>
+            <li class="nav-item"><a href="/about" class="nav-link">About Us</a></li>
+            <li class="nav-item"><a href="/reservation" class="nav-link">Reservation</a></li>
+            <li class="nav-item"><a href="/menu" class="nav-link">Menu</a></li>
+        </ul>
+    </nav>
+    <div class="container-fluid"  style="background-image:url('pizza-bg.jpg'); color: white;">
+        <div class="container p-3 mb-2 bg-dark" id="reservation">
+            <h2 style ="text-align: center;" >Table Reservation Form</h2>
+            <form class="row g-3" action="/reservation-info" method="post">
+                <h3 style ="text-align: left;">Contact details</h3>
+                <div class="col-md-6">
+                    <label for="firstname" class="form-label">Firstname</label>
+                    <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+                    <span id="namemsg1"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="lastname" class="form-label">Lastname</label>
+                    <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+                    <span id="namemsg2"></span>
+                </div>
+                <div class="col-md-6">
+                    <label for="email" class="col-form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter Email">
+                    <span id="emailmsg"></span>
+                </div>
+                <div class="col-md-6">
+                  <label for="mobile" class="form-label">Mobile</label>
+                  <input type="tel" class="form-control" id="mobile" name="mobile" placeholder="Phone Number">
+                  <span id="phonemsg"></span>
+                </div>
+                <h3 style ="text-align: left;">Reservation details</h3>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="restaurant" class="form-label">Restaurant</label>
+                        <select id="restaurant" name="restaurant" class ="form-select" aria-label="Default select example">
+                            <option selected>Choose ...</option>
+                            <option value="Melbourne">Melbourne</option>
+                            <option value="Sydney">Sydney</option>
+                        </select>
+                        <span id="locationmsg"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="guestsnumber" class="form-label">Number of Guests</label>
+                        <select id="guestsnumber" name="guestsnumber" class ="form-select" aria-label="Default select example">
+                          <option selected>Choose ...</option>
+                          <option value="1 Guest">1 Guest</option>
+                          <option value="2 Guests">2 Guests</option>
+                          <option value="3 Guests">3 Guests</option>
+                          <option value="4 Guests">4 Guests</option>
+                          <option value="5 Guests">5 Guests</option>
+                          <option value="6 Guests">6 Guests</option>
+                        </select>
+                        <span id="guestsmsg"></span>
+                    </div>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="date" class="form-label">Reservation Date</label>
+                        <input type="date" class="form-control" id="date" name="date">
+                        <span id="datemsg"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="time" class="form-label">Reservation Time</label>
+                        <select id="time" name="time" class ="form-select" aria-label="Default select example">
+                            <option selected>Choose ...</option>
+                            <option value="Lunch">Lunch</option>
+                            <option value="Dinner">Dinner</option>
+                        </select>
+                        <span id="timemsg"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="notes" class="form-label">Notes for the reservation</label>
+                    <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+                </div>  
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="reset" class="btn btn-primary">Reset</button>
+                </div>
+            </form>
+        </div>
+        <div class="container p-3 mb-2 bg-dark" id="formRetrieve">
+            <h4>Reservation List</h4>
+            <p> Click here to view all reservations at 4Ps restaurants.</p>
+            <form action="/reservation-info" method="get">
+                <a href="/reservation-info">
+                <button class="btn btn btn-primary" id="getreservationBtn">
+                Retrieve Reservations From Database
+                </button>
+                </a>
+            </form> 
+        </div>
+        <div class="container p-3 mb-2 bg-dark">
+            <h4>Search Reservation List</h4>
+            <p> Search for reservations at each location </p>
+            <div class="container">
+                <div class="row justify-content-center mb-4">
+                    <div>
+                        <form action="/search" method="post" id="data-search">
+                            <label for="restaurant" class="form-label">Restaurant Location</label>
+                            <select class="form-select" name="restaurant"> 
+                                   <option selected>Choose...</option>
+                                   <option value ="Melbourne">Melbourne</option>
+                                   <option value="Sydney">Sydney</option> 
+                            </select><br>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+
+</main>
+
+<%- include('footer'); -%>
